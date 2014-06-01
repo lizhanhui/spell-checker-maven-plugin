@@ -3,6 +3,7 @@
  */
 package org.apache.maven.plugins.checker.core;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,7 +18,11 @@ import java.util.regex.Pattern;
  */
 public class SimpleWordTokenizer implements WordTokenizer {
 
+    private static final int DEFAULT_BUFFER_SIZE = 1024;
+
     private static Pattern WORD_PATTERN = Pattern.compile("\\w{1,}");
+
+    private static StringBuffer BUFFER = new StringBuffer(DEFAULT_BUFFER_SIZE);
 
     /**
      * The simplest word tokenizer that separates words by space.
@@ -31,8 +36,51 @@ public class SimpleWordTokenizer implements WordTokenizer {
             throw new IllegalArgumentException("line to tokenize shout not be null or empty");
         }
         Matcher matcher = WORD_PATTERN.matcher(line);
+        String extractedWord = null;
+        List<String> parsedWords = new ArrayList<String>();
         while (matcher.find()) {
-            words.add(matcher.group(0));
+            extractedWord = matcher.group(0);
+            if (!isCompoundWord(extractedWord)) {
+                words.add(extractedWord);
+            } else {
+                parseCompoundWord(extractedWord, parsedWords);
+                words.addAll(parsedWords);
+            }
         }
+    }
+
+
+    public static void parseCompoundWord(String compoundWord, List<String> words) {
+        words.clear();
+        BUFFER.delete(0, BUFFER.length());
+        final int len = compoundWord.length();
+        int i = 0, j = 0;
+        char c = ' ';
+        for (; i < len; i++) {
+            if (i == len - 1) {
+                words.add(compoundWord.substring(j));
+                break;
+            }
+
+            c = compoundWord.charAt(i);
+            if (c >= 'A' && c <= 'Z') {
+                if (i > j) {
+                    words.add(compoundWord.substring(j, i));
+                    j = i;
+                }
+            }
+        }
+    }
+
+    public static boolean isCompoundWord(String extractedWord) {
+        if (extractedWord.equals(extractedWord.toLowerCase())) {
+            return false;
+        }
+
+        if (extractedWord.equals(extractedWord.toUpperCase())) {
+            return false;
+        }
+
+        return true;
     }
 }
