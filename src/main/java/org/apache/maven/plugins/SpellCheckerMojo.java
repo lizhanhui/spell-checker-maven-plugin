@@ -66,6 +66,7 @@ public class SpellCheckerMojo extends AbstractMojo {
         if (file.isFile()) {
             String relativePath = PathUtil.getRelativePath(sourceDirectory, file);
             getLog().info("Check Spelling: " + relativePath);
+            boolean checked = false;
             for (SpellChecker spellChecker : SPELL_CHECKERS) {
                 if (spellChecker.support(file)) {
                     spellChecker.check(file, suggestions);
@@ -79,8 +80,12 @@ public class SpellCheckerMojo extends AbstractMojo {
                         bufferedWriter.newLine();
                     }
                     suggestions.clear();
+                    checked = true;
                     break;
                 }
+            }
+            if (!checked) {
+                getLog().warn("Unable to check " + relativePath);
             }
         } else {
             File[] subDirectories = file.listFiles();
