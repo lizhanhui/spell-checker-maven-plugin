@@ -39,6 +39,7 @@ public class SpellCheckerMojo extends AbstractMojo {
     private void checkFile(File file, List<Suggestion> suggestions) {
 
         if (file.isFile()) {
+            getLog().info("Checking " + file.getName());
             for (SpellChecker spellChecker : SPELL_CHECKERS) {
                 if (spellChecker.support(file)) {
                     spellChecker.check(file, suggestions);
