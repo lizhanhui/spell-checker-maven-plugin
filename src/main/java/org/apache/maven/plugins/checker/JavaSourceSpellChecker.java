@@ -58,12 +58,15 @@ public class JavaSourceSpellChecker extends SpellCheckerAdapter {
             bufferedReader = new BufferedReader(new FileReader(file));
             String line = null;
             int lineNum = 0;
+            String[] words = null;
             while (null != (line = bufferedReader.readLine())) {
                 lineNum++;
-                String[] words = wordTokenizer.tokenize(line);
-                for (String word : words) {
-                    if (!dictionary.isWord(word)) {
-                        suggestions.add(new Suggestion(lineNum, word, dictionary.suggest(word)));
+                if (!line.trim().isEmpty()) {
+                    words = wordTokenizer.tokenize(line);
+                    for (String word : words) {
+                        if (!dictionary.isWord(word)) {
+                            suggestions.add(new Suggestion(lineNum, word, dictionary.suggest(word)));
+                        }
                     }
                 }
             }
