@@ -1,4 +1,4 @@
-source-code-spell-checker
+spell-checker-maven-plugin
 ====================
 This is a maven plugin, intending to check spelling of source code according to source type. It's designed to be flexible so that minimal changes are required to support new features. Also, this plugin is implemented with performance in mind, whenever possible, we'd reuse existing objects, which should relieve JVM from busy garbage collection as much as possible. 
 
