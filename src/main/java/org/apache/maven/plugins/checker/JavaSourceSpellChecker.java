@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,10 +27,11 @@ public class JavaSourceSpellChecker extends SpellCheckerAdapter {
 
     private WordTokenizer wordTokenizer;
 
-    private static Dictionary dictionary = Dictionary.getInstance();
+    private Dictionary dictionary;
 
     public JavaSourceSpellChecker() {
         wordTokenizer = new SimpleWordTokenizer();
+        dictionary = Dictionary.getInstance();
     }
 
     /**
@@ -58,16 +60,17 @@ public class JavaSourceSpellChecker extends SpellCheckerAdapter {
             bufferedReader = new BufferedReader(new FileReader(file));
             String line = null;
             int lineNum = 0;
-            String[] words = null;
+            List<String> words = new ArrayList<String>();
             while (null != (line = bufferedReader.readLine())) {
                 lineNum++;
                 if (!line.trim().isEmpty()) {
-                    words = wordTokenizer.tokenize(line);
+                    wordTokenizer.tokenize(line, words);
                     for (String word : words) {
-                        if (!dictionary.isWord(word)) {
+                        if (!dictionary.isWord(word.toLowerCase())) {
                             suggestions.add(new Suggestion(lineNum, word, dictionary.suggest(word)));
                         }
                     }
+                    words.clear();
                 }
             }
         } catch (IOException e) {

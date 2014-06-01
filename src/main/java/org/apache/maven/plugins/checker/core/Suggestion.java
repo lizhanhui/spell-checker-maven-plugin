@@ -15,4 +15,14 @@ public class Suggestion {
         this.lineNumber = lineNumber;
         this.suggestedWords = suggestedWords;
     }
+
+
+    @Override
+    public String toString() {
+        return new org.apache.commons.lang3.builder.ToStringBuilder(this)
+                .append("word", word)
+                .append("lineNumber", lineNumber)
+                .append("suggestedWords", suggestedWords)
+                .toString();
+    }
 }

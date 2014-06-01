@@ -1,11 +1,13 @@
 package org.apache.maven.plugins.checker.core;
 
+import java.util.List;
+
 public interface WordTokenizer {
 
     /**
      * This method intends to split a line into separate human readable words.
      * @param line A line of words.
-     * @return Separate human readable words in form of array.
+     * @param words  Separate human readable words in form of list.
      */
-    String[] tokenize(String line);
+    void tokenize(String line, List<String> words);
 }

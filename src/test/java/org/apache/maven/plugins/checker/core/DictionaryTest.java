@@ -18,9 +18,8 @@ public class DictionaryTest {
     public void testSuggest() {
         long start = System.currentTimeMillis();
         List<String> suggestion = dictionary.suggest("father");
-        System.out.println(System.currentTimeMillis() - start);
-
-        System.out.println(suggestion);
+        System.out.println("Time Used:" + (System.currentTimeMillis() - start) + " ms");
+        System.out.println("Suggestion: " + suggestion);
 
     }
 
