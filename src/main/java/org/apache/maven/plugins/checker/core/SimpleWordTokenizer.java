@@ -4,6 +4,7 @@
 package org.apache.maven.plugins.checker.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,11 +48,19 @@ public class SimpleWordTokenizer implements WordTokenizer {
                 words.addAll(parsedWords);
             }
         }
+        words.remove("");
     }
 
 
     public static void parseCompoundWord(String compoundWord, List<String> words) {
         words.clear();
+
+        //handle UPPER_CASE_NAMES
+        if (compoundWord.equals(compoundWord.toUpperCase())) {
+            words.addAll(Arrays.asList(compoundWord.split("_")));
+            return;
+        }
+
         BUFFER.delete(0, BUFFER.length());
         final int len = compoundWord.length();
         int i = 0, j = 0;
@@ -77,7 +86,7 @@ public class SimpleWordTokenizer implements WordTokenizer {
             return false;
         }
 
-        if (extractedWord.equals(extractedWord.toUpperCase())) {
+        if (extractedWord.equals(extractedWord.toUpperCase()) && !extractedWord.contains("_")) {
             return false;
         }
 

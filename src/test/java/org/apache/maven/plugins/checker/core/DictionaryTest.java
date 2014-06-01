@@ -11,13 +11,13 @@ public class DictionaryTest {
 
     @Test
     public void testIsWord() {
-        Assert.assertTrue(dictionary.isWord("parameter"));
+        Assert.assertTrue(dictionary.isWord("0X1F"));
     }
 
     @Test
     public void testSuggest() {
         long start = System.currentTimeMillis();
-        List<String> suggestion = dictionary.suggest("father");
+        List<String> suggestion = dictionary.suggest("GOOD_NAME");
         System.out.println("Time Used:" + (System.currentTimeMillis() - start) + " ms");
         System.out.println("Suggestion: " + suggestion);
 

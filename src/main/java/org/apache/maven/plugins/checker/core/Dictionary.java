@@ -12,8 +12,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Dictionary {
+
+    private static Pattern NUMBER_PATTERN = Pattern.compile("[0x|0X]?+\\d{1,}[l|L]?+");
+
+    private static Pattern DECIMAL_PATTERN = Pattern.compile("[0x|0X]?+\\d*.\\d*[d|D|f|F]?+");
 
     private static int MAX_EDIT_DISTANCE = 3;
 
@@ -109,11 +115,18 @@ public class Dictionary {
     }
 
     public static List<String> suggest(String word) {
-        if (RESULTS.containsKey(word)) {
-            return RESULTS.get(word);
+        if (RESULTS.containsKey(word.toLowerCase())) {
+            return RESULTS.get(word.toLowerCase());
         }
 
-        Map<Integer, List<String>> results = suggest(word, Math.min(MAX_WORD_DIFFERENCE_IN_LENGTH, word.length() / 2));
+        Map<Integer, List<String>> results = null;
+        //for pure upper case words, we search its lowercase.
+        if (word.equals(word.toUpperCase())) {
+           results = suggest(word.toLowerCase(), Math.min(MAX_WORD_DIFFERENCE_IN_LENGTH, word.length() / 2));
+        } else {
+           results = suggest(word, Math.min(MAX_WORD_DIFFERENCE_IN_LENGTH, word.length() / 2));
+        }
+
         List<String> result = new ArrayList<String>();
         result.addAll(results.get(0));
         List<String> row = null;
@@ -129,7 +142,7 @@ public class Dictionary {
             }
         }
         //sort(result);
-        RESULTS.put(word, result);
+        RESULTS.put(word.toLowerCase(), result);
         return result;
     }
 
@@ -205,7 +218,22 @@ public class Dictionary {
 
 
     public static boolean isWord(String word) {
-        return WORDS.get(word.length()).contains(word);
+
+        if (WORDS.get(word.length()).contains(word)) {
+            return true;
+        }
+
+        Matcher matcher = NUMBER_PATTERN.matcher(word);
+        if (matcher.matches()) {
+            return true;
+        }
+
+        matcher = DECIMAL_PATTERN.matcher(word);
+        if(matcher.matches()) {
+            return true;
+        }
+
+        return false;
     }
 
 
