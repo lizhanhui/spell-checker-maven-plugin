@@ -6,6 +6,6 @@ Another heighlight worth mentioning here is that Damerau Levenshtein Distance is
 
 If you want to use this plugin right now in production, I have to warn you this plugin is still at its early development phase. Though it won't bite your hard disk, but keep cautious. 
 ##Sample Usage
-Please visit [source-code-spell-checker-demo](https://github.com/lizhanhui/source-spell-checker-demo) for sample configuration.
+Please visit [spell-checker-maven-plugin-demo](https://github.com/lizhanhui/spell-checker-maven-plugin-demo) for sample configuration.
 ##Feedback
-As you can see the project information, this is a personal project. If you find any bug, you are very welcome to create [Issues](https://github.com/lizhanhui/source-spell-checker/issues). If you are also a Java developer and capable to contribute, do NOT feel heistate to contact me lizhanhui at gmail.com, I would be very glad to add you as committer.
+As you can see the project information, this is a personal project. If you find any bug, you are very welcome to create [Issues](https://github.com/lizhanhui/spell-checker-maven-plugin/issues). If you are also a Java developer and capable to contribute, do NOT feel heistate to contact me lizhanhui at gmail.com, I would be very glad to add you as committer.
