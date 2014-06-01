@@ -7,7 +7,7 @@ Another heighlight worth mentioning here is that [Damerau Levenshtein Distance](
 
 If you want to use this plugin right now in production, I have to warn you this plugin is still at its early development phase. Though it won't bite your hard disk, but keep cautious. 
 
-##DemoUsage
+##Demo Usage
 Please visit [spell-checker-maven-plugin-demo](https://github.com/lizhanhui/spell-checker-maven-plugin-demo) for sample configuration.
 
 ##Feedback
