@@ -14,4 +14,4 @@ Please visit [spell-checker-maven-plugin-demo](https://github.com/lizhanhui/spel
 As you can see the project information, this is a personal project. If you find any bug, you are very welcome to create [Issues](https://github.com/lizhanhui/spell-checker-maven-plugin/issues).
 
 ##Contribute
-If you are also a Java developer and capable of contributing, please do NOT heistate to contact lizhanhui at gmail.com, I would be very glad to add you as committer.
+If you are also a Java developer and capable of contributing, please do NOT hesitate to contact lizhanhui at gmail.com, I would be very glad to add you as committer.
